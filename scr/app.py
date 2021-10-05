@@ -2,16 +2,23 @@ from sanic import Sanic
 from sanic.request import Request
 from sanic import response
 from .routes import routes
+from scr.database import connection
+from scr.models.user import User
 
 app = Sanic(__name__)
-app.blueprints(routes)
+app.blueprint(routes)
 
 
 
 @app.listener('before_server_start')
-async def creat_tables(Server: Sanic, _):
-    print('Antes  do servidor iniciar')
-
+async def create_tables(server: Sanic, _):
+    try:
+        connection.create_tables(
+            [User]
+        )
+    except Exception as e:
+        print("Error ao setar o db: ", str(e))
+        pass
 
 @app.listener('after_server_start')
 async def depois(server: Sanic, _):

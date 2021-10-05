@@ -1,8 +1,8 @@
-from sanic import blueprints
-from sanic import Request
+from sanic import Blueprint
+from sanic.request import Request
 from scr.controllers.users import UserCoontroller
 
-user = blueprints('content_user', url_prefix='/users')
+user = Blueprint('content_user', url_prefix='/users')
 
 @user.get('/')
 async def index(request: Request):
