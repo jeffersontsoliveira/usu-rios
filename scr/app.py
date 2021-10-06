@@ -1,8 +1,8 @@
 from sanic import Sanic
 from sanic.request import Request
 from sanic import response
-from .routes import routes
-from scr.database import connection
+from scr.routes import routes
+from scr.DataBase import connection
 from scr.models.user import User
 
 app = Sanic(__name__)

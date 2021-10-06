@@ -1,6 +1,8 @@
-from peewee import PostegresqlDatabase, Model
+from peewee import PostgresqlDatabase, Model
+from peewee_validates import ModelValidator
+from playhouse.shortcuts import model_to_dict
 
-connection = PostegresqlDatabase(
+connection = PostgresqlDatabase(
     'cadastro',
     user = 'root',
     password = 'root',
@@ -9,5 +11,22 @@ connection = PostegresqlDatabase(
 )
 
 class BaseModel(Model):
-    class Modal:
+    class Meta:
         database = connection
+
+
+    @property
+    def json(self):
+        return None
+
+    @json.getter
+    def json(self) -> dict:
+        return model_to_dict(self, backrefs=True, recurse=False)
+
+    @classmethod
+    def validate(cls, **data) -> dict:
+        validator = ModelValidator(cls(**data))
+        validator.validate()
+
+        return validator.errors
+

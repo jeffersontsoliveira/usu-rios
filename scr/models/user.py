@@ -1,4 +1,4 @@
-from scr.database import BaseModel
+from scr.DataBase.database import BaseModel
 from datetime import datetime
 import peewee
 

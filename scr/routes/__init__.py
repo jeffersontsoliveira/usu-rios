@@ -1,5 +1,5 @@
 from sanic import Blueprint
-from .users import user
+from scr.routes.user import user
 
 
 routes = Blueprint.group([user], url_prefix='/app')
